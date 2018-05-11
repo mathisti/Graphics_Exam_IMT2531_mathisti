@@ -126,9 +126,10 @@ int main() {
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 
-																	// view/projection transformations
+		// view/projection transformations
 	glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 1000.0f);
 	
+	model.scale(500.0f);
 	//city.scale(0.1f);
 	//city.translate(glm::vec3(-150, -1050, 500));
 
@@ -169,6 +170,7 @@ int main() {
 
 		//model.translate(glm::vec3(-20 * deltaTime, 0, 0));
 		//model.rotate(40 * deltaTime, glm::vec3(0, 1, 0));
+		
 		shader.setMat4("model", model.getTransform());
 		model.Draw(shader);
 		shader.setMat4("model", model2.getTransform());
