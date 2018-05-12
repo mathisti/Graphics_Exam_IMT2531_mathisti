@@ -152,17 +152,19 @@ int main() {
 	
 		testLight(shader);
 
-		shader.setInt("spotCount", 1);
-		shader.setVec3("spotLight[0].position", camera.Position);
-		shader.setVec3("spotLight[0].direction", camera.Front);
-		shader.setVec3("spotLight[0].ambient", glm::vec3(0.2f, 0.2f, 0.2f));
-		shader.setVec3("spotLight[0].diffuse", glm::vec3(0.8f, 0.8f, 0.8f));
-		shader.setVec3("spotLight[0].specular", glm::vec3(0.6f, 0.6f, 0.6f));
-		shader.setFloat("spotLight[0].cutOff", glm::cos(glm::radians(16.0f)));
-		shader.setFloat("spotLight[0].outerCutOff", glm::cos(glm::radians(20.0f)));
-		shader.setFloat("spotLight[0].constant", 1.0f);
-		shader.setFloat("spotLight[0].linear", 0.007);
-		shader.setFloat("spotLight[0].quadratic", 0.0002);
+		//shader.setInt("spotCount", 1);
+		//shader.setInt("pointCount", 1);
+		shader.setBool("dirSet", true);
+		//shader.setVec3("pointLight[0].position", camera.Position);
+		shader.setVec3("dirLight.direction", camera.Front);
+		shader.setVec3("dirLight.ambient", glm::vec3(0.5f, 0.5f, 0.5f));
+		shader.setVec3("dirLight.diffuse", glm::vec3(0.8f, 0.8f, 0.8f));
+		shader.setVec3("dirLight.specular", glm::vec3(0.6f, 0.6f, 0.6f));
+		//shader.setFloat("spotLight[0].cutOff", glm::cos(glm::radians(16.0f)));
+		//shader.setFloat("spotLight[0].outerCutOff", glm::cos(glm::radians(20.0f)));
+		//shader.setFloat("pointLight[0].constant", 1.0f);
+		//shader.setFloat("pointLight[0].linear", 0.007);
+		//shader.setFloat("pointLight[0].quadratic", 0.0002);
 
 		glm::mat4 view = camera.GetViewMatrix();
 		shader.setMat4("projection", projection);
