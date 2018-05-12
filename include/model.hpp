@@ -22,6 +22,7 @@ class Model
 {
 public:
 	/*  Functions   */
+	Model();
 	Model(char *path);
 	void Draw(Shader shader);
 	glm::mat4 getTransform();
@@ -29,10 +30,14 @@ public:
 	void rotate(float degrees, glm::vec3 rotation);
 	void scale(glm::vec3 scale);
 	void scale(float scale);
+	glm::vec3 getPos();
+	void setPos(glm::vec3);
+	
 private:
 	std::vector<Texture> textures_loaded;
 
 	/*  Model Data  */
+	glm::vec3 pos;
 	glm::mat4 transform;
 	std::vector<Mesh> meshes;
 	std::string directory;

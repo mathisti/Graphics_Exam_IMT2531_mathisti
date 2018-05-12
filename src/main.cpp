@@ -4,6 +4,7 @@
 
 #include "camera.hpp"
 #include "model.hpp"
+#include "plane.hpp"
 
 void testLight(Shader& shader) {
 
@@ -50,6 +51,11 @@ Camera camera(glm::vec3(0.0f, 10.0f, 30.0f));
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
+
+Camera planeCam;
+
+bool flying = false;
+bool resetPlane = false;
 
 // timing
 float deltaTime = 0.0f;
@@ -116,7 +122,10 @@ int main() {
 	glfwSwapInterval(1);
 
 	Model model("assets/models/heightmap/height100.obj");
-	Model model2("assets/models/model/ask21mi.obj");
+	Model plane_model("assets/models/model/ask21mi.obj");
+	plane_model.translate(glm::vec3(0, 0, 0));
+	plane_model.setPos(glm::vec3(0.0f, 0.0f, 0.0f));
+	
 	//Model city("assets/models/box.obj");
 	Shader shader("shaders/testvertex.vert", "shaders/testfragment.frag");
 	
@@ -129,10 +138,10 @@ int main() {
 	
 	
 	model.scale(500.0f);
-	
-	model2.scale(0.5f);
+	plane_model.scale(0.5f);
 	//city.scale(0.1f);
 	//city.translate(glm::vec3(-150, -1050, 500));
+	
 
 	float lightX = 0;
 	
@@ -144,6 +153,7 @@ int main() {
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 		// view/projection transformations
+		
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 1000.0f);
 
 		// render
@@ -169,23 +179,36 @@ int main() {
 		//shader.setFloat("pointLight[0].linear", 0.007);
 		//shader.setFloat("pointLight[0].quadratic", 0.0002);
 
-		glm::mat4 view = camera.GetViewMatrix();
-		shader.setMat4("projection", projection);
-		shader.setMat4("view", view);
+		if(resetPlane) {
+			plane_model.translate(-(plane_model.getPos()));
+			plane_model.setPos(glm::vec3(0, 0, 0));
+			resetPlane = false;
+		}
+
+		/*if (!flying) {*/
+			glm::mat4 view = camera.GetViewMatrix();
+			shader.setMat4("projection", projection);
+			shader.setMat4("view", view);
+		/*} else {
+			glm::mat4 view = camera.GetPlaneViewMatrix(plane_model.getPos());
+			shader.setMat4("projection", projection);
+			shader.setMat4("view", view);
+		//}*/
 
 		//model.translate(glm::vec3(-20 * deltaTime, 0, 0));
 		//model.rotate(40 * deltaTime, glm::vec3(0, 1, 0));
-		
+		plane_model.translate(glm::vec3(-1 * deltaTime, 0, 0));
+		plane_model.setPos(glm::vec3(-1 * deltaTime, 0, 0));
+
 		shader.setMat4("model", model.getTransform());
 		model.Draw(shader);
-		shader.setMat4("model", model2.getTransform());
-		model2.Draw(shader);
+		shader.setMat4("model", plane_model.getTransform());
+		plane_model.Draw(shader);
 		//shader.setMat4("model", city.getTransform());
 		//city.Draw(shader);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
-		
 	}
 
 	glfwDestroyWindow(window);
@@ -217,6 +240,10 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 		camera.ProcessKeyboard(UPWARD, deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
 		camera.ProcessKeyboard(DOWNWARD, deltaTime);
+	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+		resetPlane = true;
+	if (glfwGetKey(window, GLFW_KEY_MINUS) == GLFW_PRESS)
+		flying = !flying;
 }
 
 
