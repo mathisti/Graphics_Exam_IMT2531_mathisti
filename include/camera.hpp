@@ -50,7 +50,7 @@ public:
 
 	// Returns the view matrix calculated using Euler Angles and the LookAt Matrix
 	glm::mat4 GetViewMatrix();
-	glm::mat4 Camera::GetPlaneViewMatrix(glm::vec3 planePos);
+	glm::mat4 Camera::GetPlaneViewMatrix(glm::vec3 planePos, glm::vec3 planeFront);
 
 
 	// Processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)

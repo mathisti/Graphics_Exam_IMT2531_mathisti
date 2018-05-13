@@ -4,7 +4,7 @@
 
 #include "camera.hpp"
 #include "model.hpp"
-#include "plane.hpp"
+#include "planeModel.hpp"
 
 void testLight(Shader& shader) {
 
@@ -121,10 +121,11 @@ int main() {
 
 	glfwSwapInterval(1);
 
-	Model model("assets/models/heightmap/height100.obj");
-	Model plane_model("assets/models/model/ask21mi.obj");
+	Model model("assets/models/heightmap/height100.obj", camera.WorldUp);
+	Model plane_model("assets/models/model/ask21mi.obj", camera.WorldUp);
 	plane_model.translate(glm::vec3(0, 0, 0));
 	plane_model.setPos(glm::vec3(0.0f, 0.0f, 0.0f));
+	plane_model.moveSpeed = -5.0f;
 	
 	//Model city("assets/models/box.obj");
 	Shader shader("shaders/testvertex.vert", "shaders/testfragment.frag");
@@ -179,26 +180,28 @@ int main() {
 		//shader.setFloat("pointLight[0].linear", 0.007);
 		//shader.setFloat("pointLight[0].quadratic", 0.0002);
 
+		std::cout << "\n" << plane_model.moveSpeed;
+
 		if(resetPlane) {
 			plane_model.translate(-(plane_model.getPos()));
 			plane_model.setPos(glm::vec3(0, 0, 0));
 			resetPlane = false;
 		}
 
-		/*if (!flying) {*/
+		if (!flying) {
 			glm::mat4 view = camera.GetViewMatrix();
 			shader.setMat4("projection", projection);
 			shader.setMat4("view", view);
-		/*} else {
-			glm::mat4 view = camera.GetPlaneViewMatrix(plane_model.getPos());
+		} else {
+			glm::mat4 view = camera.GetPlaneViewMatrix(plane_model.getPos(), plane_model.model_Front);
 			shader.setMat4("projection", projection);
 			shader.setMat4("view", view);
-		//}*/
+		}
 
 		//model.translate(glm::vec3(-20 * deltaTime, 0, 0));
 		//model.rotate(40 * deltaTime, glm::vec3(0, 1, 0));
-		plane_model.translate(glm::vec3(-1 * deltaTime, 0, 0));
-		plane_model.setPos(glm::vec3(-1 * deltaTime, 0, 0));
+		plane_model.translate(glm::vec3(plane_model.moveSpeed * deltaTime, 0, 0));
+		plane_model.setPos(glm::vec3(plane_model.moveSpeed * deltaTime, 0, 0));
 
 		shader.setMat4("model", model.getTransform());
 		model.Draw(shader);
@@ -206,6 +209,21 @@ int main() {
 		plane_model.Draw(shader);
 		//shader.setMat4("model", city.getTransform());
 		//city.Draw(shader);
+
+		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+			plane_model.ProcessKeyboard(throttleUPWARD, deltaTime);
+		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+			plane_model.ProcessKeyboard(throttleDOWNWARD, deltaTime);
+		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+			plane_model.ProcessKeyboard(throttleLEFT, deltaTime);
+		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+			plane_model.ProcessKeyboard(throttleRIGHT, deltaTime);
+		if (glfwGetKey(window, GLFW_KEY_COMMA) == GLFW_PRESS)
+			plane_model.moveSpeed -= 1.0f;
+		if (glfwGetKey(window, GLFW_KEY_PERIOD) == GLFW_PRESS)
+			plane_model.moveSpeed += 1.0f;
+
+
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

@@ -17,13 +17,34 @@
 // TODO: RIP APART!!! (modularity.)
 
 
+// Defines several possible options for model movement. Used as abstraction to stay away from window-system specific input methods
+enum Model_Movement {
+	throttle,
+	throttleLEFT,
+	throttleRIGHT,
+	throttleUPWARD,
+	throttleDOWNWARD
+};
+
+
 
 class Model
 {
 public:
+	/*  Model atributes */
+	float moveSpeed;;
+	glm::vec3 model_Front;
+	glm::vec3 model_Up;
+	glm::vec3 model_Right;
+	glm::vec3 WorldUp;
+	
+	/* Euler Angles */
+	float modelYaw;
+	float modelPitch;
+
 	/*  Functions   */
 	Model();
-	Model(char *path);
+	Model(char *path, glm::vec3);
 	void Draw(Shader shader);
 	glm::mat4 getTransform();
 	void translate(glm::vec3 offset);
@@ -32,6 +53,8 @@ public:
 	void scale(float scale);
 	glm::vec3 getPos();
 	void setPos(glm::vec3);
+	void Model::ProcessKeyboard(Model_Movement direction, float deltaTime);
+	void Model::updateModelVectors();
 	
 private:
 	std::vector<Texture> textures_loaded;

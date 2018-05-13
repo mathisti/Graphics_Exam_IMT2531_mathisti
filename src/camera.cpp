@@ -1,4 +1,5 @@
 #include "camera.hpp"
+#include "model.hpp"
 
 // Constructor with vectors
 Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch) 
@@ -28,10 +29,10 @@ glm::mat4 Camera::GetViewMatrix()
 	return glm::lookAt(Position, Position + Front, Up);
 }
 
-glm::mat4 Camera::GetPlaneViewMatrix(glm::vec3 planePos)
+glm::mat4 Camera::GetPlaneViewMatrix(glm::vec3 planePos, glm::vec3 planeFront)
 {
 	glm::vec3 camPos = planePos - glm::vec3(0.0f, -3.0f, 10.0f);
-	return glm::lookAt(camPos, planePos + Front, Up);
+	return glm::lookAt(camPos, planePos + planeFront, Up);
 }
 
 // Processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
