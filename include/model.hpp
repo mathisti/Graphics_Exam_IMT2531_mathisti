@@ -1,4 +1,6 @@
 #pragma once
+#define GLM_ENABLE_EXPERIMENTAL
+
 
 #include "shader.hpp"
 #include "mesh.hpp"
@@ -13,6 +15,7 @@
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
 #include "gtc/type_ptr.hpp"
+#include "gtx/matrix_decompose.hpp"
 
 // TODO: RIP APART!!! (modularity.)
 
@@ -37,6 +40,7 @@ public:
 	glm::vec3 model_Up;
 	glm::vec3 model_Right;
 	glm::vec3 WorldUp;
+	glm::vec3 spawn;
 	
 	/* Euler Angles */
 	float modelYaw;
@@ -55,6 +59,9 @@ public:
 	void setPos(glm::vec3);
 	void Model::ProcessKeyboard(Model_Movement direction, float deltaTime);
 	void Model::updateModelVectors();
+	void setRandomPos();
+	void resetPos();
+	glm::vec3 currentPosition();
 	
 private:
 	std::vector<Texture> textures_loaded;

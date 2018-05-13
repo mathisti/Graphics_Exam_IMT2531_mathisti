@@ -4,7 +4,6 @@
 
 #include "camera.hpp"
 #include "model.hpp"
-#include "planeModel.hpp"
 
 void testLight(Shader& shader) {
 
@@ -126,6 +125,7 @@ int main() {
 	Model plane_model("assets/models/model/ask21mi.obj", camera.WorldUp);
 	plane_model.translate(glm::vec3(0, 0, 0));
 	plane_model.setPos(glm::vec3(0.0f, 0.0f, 0.0f));
+	plane_model.spawn = plane_model.getPos();
 	plane_model.moveSpeed = -5.0f;
 	
 	//Model city("assets/models/box.obj");
@@ -183,18 +183,18 @@ int main() {
 
 		std::cout << "\n" << plane_model.moveSpeed;
 
-		if(resetPlane) {
+		/*if(resetPlane) {
 			plane_model.translate(-(plane_model.getPos()));
 			plane_model.setPos(glm::vec3(0, 0, 0));
 			resetPlane = false;
-		}
+		}*/
 
 		if (!flying) {
 			glm::mat4 view = camera.GetViewMatrix();
 			shader.setMat4("projection", projection);
 			shader.setMat4("view", view);
 		} else {
-			glm::mat4 view = camera.GetPlaneViewMatrix(plane_model.getPos(), plane_model.model_Front);
+			glm::mat4 view = camera.GetPlaneViewMatrix(plane_model.currentPosition(), plane_model.model_Front);
 			shader.setMat4("projection", projection);
 			shader.setMat4("view", view);
 		}
@@ -223,7 +223,10 @@ int main() {
 			plane_model.moveSpeed -= 1.0f;
 		if (glfwGetKey(window, GLFW_KEY_PERIOD) == GLFW_PRESS)
 			plane_model.moveSpeed += 1.0f;
-
+		if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
+			plane_model.setRandomPos();
+		if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+			plane_model.resetPos();
 
 
 		glfwSwapBuffers(window);
@@ -259,8 +262,6 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 		camera.ProcessKeyboard(UPWARD, deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
 		camera.ProcessKeyboard(DOWNWARD, deltaTime);
-	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
-		resetPlane = true;
 	if (glfwGetKey(window, GLFW_KEY_SLASH) == GLFW_PRESS)
 		flying = !flying;
 }

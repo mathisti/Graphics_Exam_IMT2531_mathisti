@@ -271,3 +271,23 @@ void Model::updateModelVectors()
 	model_Right = glm::normalize(glm::cross(model_Front, WorldUp));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
 	model_Up = glm::normalize(glm::cross(model_Right, model_Front));
 }
+
+void Model::setRandomPos() {
+	glm::vec3 newPos = glm::vec3(40.0f, 25.0f, -33.0f);
+	translate(newPos);
+	pos = newPos;
+
+}
+
+void Model::resetPos() {
+	glm::vec3 newPos = glm::vec3(-(spawn + pos));
+	translate(newPos);
+	pos = newPos;
+}
+
+glm::vec3 Model::currentPosition() {
+	glm::vec3 returnPosition;
+	glm::decompose(transform, glm::vec3(), glm::quat(), returnPosition, glm::vec3(), glm::vec4());
+	pos = returnPosition;
+	return returnPosition;
+}
