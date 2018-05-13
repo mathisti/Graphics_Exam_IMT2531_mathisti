@@ -22,7 +22,6 @@
 
 // Defines several possible options for model movement. Used as abstraction to stay away from window-system specific input methods
 enum Model_Movement {
-	throttle,
 	throttleLEFT,
 	throttleRIGHT,
 	throttleUPWARD,
@@ -41,6 +40,7 @@ public:
 	glm::vec3 model_Right;
 	glm::vec3 WorldUp;
 	glm::vec3 spawn;
+	glm::mat4 transform;
 	
 	/* Euler Angles */
 	float modelYaw;
@@ -61,18 +61,18 @@ public:
 	void Model::updateModelVectors();
 	void setRandomPos();
 	void resetPos();
-	glm::vec3 currentPosition();
+	void loadModel(std::string path);
+	
 	
 private:
 	std::vector<Texture> textures_loaded;
 
 	/*  Model Data  */
 	glm::vec3 pos;
-	glm::mat4 transform;
 	std::vector<Mesh> meshes;
 	std::string directory;
 	/*  Functions   */
-	void loadModel(std::string path);
+
 	void processNode(aiNode *node, const aiScene *scene);
 	Mesh processMesh(aiMesh *mesh, const aiScene *scene);
 	std::vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type,

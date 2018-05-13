@@ -4,6 +4,7 @@
 
 #include "camera.hpp"
 #include "model.hpp"
+#include "planeModel.hpp"
 
 void testLight(Shader& shader) {
 
@@ -122,7 +123,7 @@ int main() {
 
 	Model world("assets/models/heightmap/height100.obj", camera.WorldUp);
 	world.moveSpeed = 0;
-	Model plane_model("assets/models/model/ask21mi.obj", camera.WorldUp);
+	planeModel plane_model("assets/models/model/ask21mi.obj");
 	plane_model.translate(glm::vec3(0, 0, 0));
 	plane_model.setPos(glm::vec3(0.0f, 0.0f, 0.0f));
 	plane_model.spawn = plane_model.getPos();
@@ -212,13 +213,13 @@ int main() {
 		//city.Draw(shader);
 
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-			plane_model.ProcessKeyboard(throttleUPWARD, deltaTime);
+			plane_model.update(throttleUPWARD, deltaTime);
 		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-			plane_model.ProcessKeyboard(throttleDOWNWARD, deltaTime);
+			plane_model.update(throttleDOWNWARD, deltaTime);
 		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-			plane_model.ProcessKeyboard(throttleLEFT, deltaTime);
+			plane_model.update(throttleLEFT, deltaTime);
 		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-			plane_model.ProcessKeyboard(throttleRIGHT, deltaTime);
+			plane_model.update(throttleRIGHT, deltaTime);
 		if (glfwGetKey(window, GLFW_KEY_COMMA) == GLFW_PRESS)
 			plane_model.moveSpeed -= 1.0f;
 		if (glfwGetKey(window, GLFW_KEY_PERIOD) == GLFW_PRESS)

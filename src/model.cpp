@@ -21,6 +21,7 @@ Model::Model(char *path, glm::vec3 UP)
 
 }
 
+
 void Model::Draw(Shader shader)
 {
 	for (unsigned int i = 0; i < meshes.size(); i++)
@@ -285,9 +286,4 @@ void Model::resetPos() {
 	pos = newPos;
 }
 
-glm::vec3 Model::currentPosition() {
-	glm::vec3 returnPosition;
-	glm::decompose(transform, glm::vec3(), glm::quat(), returnPosition, glm::vec3(), glm::vec4());
-	pos = returnPosition;
-	return returnPosition;
-}
+
