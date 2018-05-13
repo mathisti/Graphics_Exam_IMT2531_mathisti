@@ -121,7 +121,8 @@ int main() {
 
 	glfwSwapInterval(1);
 
-	Model model("assets/models/heightmap/height100.obj", camera.WorldUp);
+	Model world("assets/models/heightmap/height100.obj", camera.WorldUp);
+	world.moveSpeed = 0;
 	Model plane_model("assets/models/model/ask21mi.obj", camera.WorldUp);
 	plane_model.translate(glm::vec3(0, 0, 0));
 	plane_model.setPos(glm::vec3(0.0f, 0.0f, 0.0f));
@@ -138,7 +139,7 @@ int main() {
 
 	
 	
-	model.scale(500.0f);
+	world.scale(500.0f);
 	plane_model.scale(0.5f);
 	//city.scale(0.1f);
 	//city.translate(glm::vec3(-150, -1050, 500));
@@ -203,8 +204,8 @@ int main() {
 		plane_model.translate(glm::vec3(plane_model.moveSpeed * deltaTime, 0, 0));
 		plane_model.setPos(glm::vec3(plane_model.moveSpeed * deltaTime, 0, 0));
 
-		shader.setMat4("model", model.getTransform());
-		model.Draw(shader);
+		shader.setMat4("model", world.getTransform());
+		world.Draw(shader);
 		shader.setMat4("model", plane_model.getTransform());
 		plane_model.Draw(shader);
 		//shader.setMat4("model", city.getTransform());
@@ -260,7 +261,7 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 		camera.ProcessKeyboard(DOWNWARD, deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
 		resetPlane = true;
-	if (glfwGetKey(window, GLFW_KEY_MINUS) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_SLASH) == GLFW_PRESS)
 		flying = !flying;
 }
 

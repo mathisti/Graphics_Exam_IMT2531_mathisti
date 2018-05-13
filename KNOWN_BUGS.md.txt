@@ -23,5 +23,6 @@ level 3: Game breaking in nature. Will probably have the same origin as a level 
 
 
 ## LEVEL 1:
-
-
+###### height10.obj fails to load
+- Description: The highest quality heightmap does not load using the load object.
+- Possible solution: Using a lower quality map for now (height100.obj)

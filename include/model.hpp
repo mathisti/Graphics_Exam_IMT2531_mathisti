@@ -32,7 +32,7 @@ class Model
 {
 public:
 	/*  Model atributes */
-	float moveSpeed;;
+	float moveSpeed;
 	glm::vec3 model_Front;
 	glm::vec3 model_Up;
 	glm::vec3 model_Right;

@@ -244,17 +244,19 @@ void Model::setPos(glm::vec3 position) {
 // Processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
 void Model::ProcessKeyboard(Model_Movement direction, float deltaTime)
 {
-	/*float velocity = moveSpeed * deltaTime;
-	if (direction == throttle)
-		pos += Front * velocity;
-	if (direction == throttleLEFT)
-		pos -= Right * velocity;
-	if (direction == throttleRIGHT)
-		pos += Right * velocity;
-	if (direction == throttleUPWARD)
-		pos += Up * velocity;
-	if (direction == throttleDOWNWARD)
-		pos -= Up * velocity;*/
+	if (moveSpeed) {
+		/*float velocity = moveSpeed * deltaTime;
+		if (direction == throttle)
+			pos += Front * velocity;
+		if (direction == throttleLEFT)
+			pos -= Right * velocity;
+		if (direction == throttleRIGHT)
+			pos += Right * velocity;
+		if (direction == throttleUPWARD)
+			pos += Up * velocity;
+		if (direction == throttleDOWNWARD)
+			pos -= Up * velocity;*/
+	}
 }
 
 void Model::updateModelVectors()
