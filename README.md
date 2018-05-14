@@ -17,3 +17,10 @@ The camera that follows the glider does not follow properly, and is only oriente
 
 ### Other Features:
 Using 'R' you can reset the glider to it's original position.
+
+# Deployment:
+To set up, clone the repo. Start cmake and navigate the source to the main folder of the repo and say it should build in path_to_folder/build. Hit "configure", then "generate".
+
+After generating, move to the directory and enter the "build" folder. Run the solution file "Exam_Graphics_Programming_2018.sln".
+
+When inside, right-click the solution in the solution explorer and select "properties". Change the "Single startup project" from "ALL_BUILD" to "Exam_Graphics_Programming_2018". Build and run the code and you are set to go.
