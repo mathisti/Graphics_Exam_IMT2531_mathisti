@@ -3,8 +3,8 @@ Exam for Graphics programming in OpenGL 2018 NTNU
 
 # Features:
 ### Camera:
-Control camera orientation using mouse, and move the camera using the keys ‘i’ and ‘k’ for z axis, ‘j’ and ‘l’ for x axis, and ‘y’
-and ‘h’ for y axis. You can zoom using the scroll wheel on the mouse. Controls for the camera is not optimal, and it will move once, pause, and start moving again.
+Control camera orientation using mouse, and move the camera using the keys ‘I’ and ‘K’ for z axis, ‘J’ and ‘L’ for x axis, and ‘Y’
+and ‘H’ for y axis. You can zoom using the scroll wheel on the mouse (not the 'N' and 'M' buttons!). Controls for the camera is not optimal, and it will move once, pause, and start moving again.
 
 Press '-' on the Norwegian keyboard will alow you to switch between a camera that follows the glider in the scene and a free-moving camera.
 
