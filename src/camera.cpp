@@ -31,7 +31,7 @@ glm::mat4 Camera::GetViewMatrix()
 
 glm::mat4 Camera::GetPlaneViewMatrix(glm::vec3 planePos, glm::vec3 planeFront)
 {
-	glm::vec3 camPos = planePos - glm::vec3(0.0f, -3.0f, 10.0f);
+	glm::vec3 camPos = planePos + glm::vec3(15.0f, 3.0f, 0.0f);
 	return glm::lookAt(camPos, planePos + planeFront, Up);
 }
 

@@ -13,11 +13,9 @@ Model::Model()
 	std::cout << "you dun goofed";
 }
 
-Model::Model(char *path, glm::vec3 UP)
+Model::Model(char *path)
 {
 	loadModel(path);
-	model_Front = glm::vec3(-1, 0, 0);
-	WorldUp = UP;
 
 }
 
@@ -241,49 +239,3 @@ glm::vec3 Model::getPos() {
 void Model::setPos(glm::vec3 position) {
 	pos = position;
 }
-
-// Processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
-void Model::ProcessKeyboard(Model_Movement direction, float deltaTime)
-{
-	if (moveSpeed) {
-		/*float velocity = moveSpeed * deltaTime;
-		if (direction == throttle)
-			pos += Front * velocity;
-		if (direction == throttleLEFT)
-			pos -= Right * velocity;
-		if (direction == throttleRIGHT)
-			pos += Right * velocity;
-		if (direction == throttleUPWARD)
-			pos += Up * velocity;
-		if (direction == throttleDOWNWARD)
-			pos -= Up * velocity;*/
-	}
-}
-
-void Model::updateModelVectors()
-{
-	// Calculate the new Front vector
-	glm::vec3 front;
-	front.x = cos(glm::radians(modelYaw)) * cos(glm::radians(modelPitch));
-	front.y = sin(glm::radians(modelPitch));
-	front.z = sin(glm::radians(modelYaw)) * cos(glm::radians(modelPitch));
-	model_Front = glm::normalize(front);
-	// Also re-calculate the Right and Up vector
-	model_Right = glm::normalize(glm::cross(model_Front, WorldUp));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
-	model_Up = glm::normalize(glm::cross(model_Right, model_Front));
-}
-
-void Model::setRandomPos() {
-	glm::vec3 newPos = glm::vec3(40.0f, 25.0f, -33.0f);
-	translate(newPos);
-	pos = newPos;
-
-}
-
-void Model::resetPos() {
-	glm::vec3 newPos = glm::vec3(-(spawn + pos));
-	translate(newPos);
-	pos = newPos;
-}
-
-

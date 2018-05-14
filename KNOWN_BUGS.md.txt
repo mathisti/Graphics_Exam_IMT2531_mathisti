@@ -19,7 +19,10 @@ level 3: Game breaking in nature. Will probably have the same origin as a level 
 
 
 ## LEVEL 2:
-
+###### Plane camera
+- Description: plane camera doen't follow the plane properly.
+- Possible solution: Calculate the rotation and use it to move the camera -(planeRotation).
+- Cause: Camera is set to look along the original x-axis of the plane and doesn't update when the plane moves.
 
 
 ## LEVEL 1:

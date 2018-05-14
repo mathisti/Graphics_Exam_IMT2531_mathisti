@@ -121,8 +121,7 @@ int main() {
 
 	glfwSwapInterval(1);
 
-	Model world("assets/models/heightmap/height100.obj", camera.WorldUp);
-	world.moveSpeed = 0;
+	Model world("assets/models/heightmap/height100.obj");
 	planeModel plane_model("assets/models/model/ask21mi.obj");
 	plane_model.translate(glm::vec3(0, 0, 0));
 	plane_model.setPos(glm::vec3(0.0f, 0.0f, 0.0f));
@@ -184,11 +183,6 @@ int main() {
 
 		std::cout << "\n" << plane_model.moveSpeed;
 
-		/*if(resetPlane) {
-			plane_model.translate(-(plane_model.getPos()));
-			plane_model.setPos(glm::vec3(0, 0, 0));
-			resetPlane = false;
-		}*/
 
 		if (!flying) {
 			glm::mat4 view = camera.GetViewMatrix();

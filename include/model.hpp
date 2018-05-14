@@ -34,21 +34,22 @@ class Model
 {
 public:
 	/*  Model atributes */
-	float moveSpeed;
-	glm::vec3 model_Front;
+	
 	glm::vec3 model_Up;
 	glm::vec3 model_Right;
 	glm::vec3 WorldUp;
 	glm::vec3 spawn;
 	glm::mat4 transform;
 	
+
 	/* Euler Angles */
 	float modelYaw;
 	float modelPitch;
 
+
 	/*  Functions   */
 	Model();
-	Model(char *path, glm::vec3);
+	Model(char *path);
 	void Draw(Shader shader);
 	glm::mat4 getTransform();
 	void translate(glm::vec3 offset);
@@ -57,10 +58,6 @@ public:
 	void scale(float scale);
 	glm::vec3 getPos();
 	void setPos(glm::vec3);
-	void Model::ProcessKeyboard(Model_Movement direction, float deltaTime);
-	void Model::updateModelVectors();
-	void setRandomPos();
-	void resetPos();
 	void loadModel(std::string path);
 	
 	
