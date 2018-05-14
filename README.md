@@ -11,7 +11,7 @@ Press '-' on the Norwegian keyboard will alow you to switch between a camera tha
 ### Glider:
 The Glider can be controlled using the WASD keys. W and S makes a pitch movement where 'W' is downward and 'S' is upward. 'A'and 'D' rolls left and right respectively.
 
-Using ',' and '.' You can change the speed of the glider, where ',' makes the speed increase (positively) and '.' makes the speed decrease (negatively accelerate!) there is no maximum or minimum speed for the glider, so it can go backwards (it will go faster backwards if you keep pressing '.' when the speed is negative). At high speeds, the camera gets a little choppy.
+Using ',' and '.' You can change the speed of the glider, where ',' makes the speed increase (positively) and '.' makes the speed decrease (negatively accelerate!) there is no maximum or minimum speed for the glider, so it can go backwards (it will go faster backwards if you keep pressing '.' when the speed is negative). Speed is printed to the console. At high speeds, the follow gloder camera gets a little choppy.
 
 The camera that follows the glider does not follow properly, and is only oriented toward the original front of the plane.
 
