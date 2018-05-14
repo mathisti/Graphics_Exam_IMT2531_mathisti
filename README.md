@@ -27,6 +27,10 @@ When inside, right-click the solution in the solution explorer and select "prope
 
 
 # Notes from the development process:
+### Framework
+Framework can be found here: https://github.com/Avokadoen/learnOpenGLCode (last accessed 14.05.2018) Version used was taken 11.05.2018.
+Entire framework is not in the delivery as the entire framework was not needed for what i accomplished.
+
 ### Glider:
 Glider was turned from a .blender file into an .obj file using blender.
 
