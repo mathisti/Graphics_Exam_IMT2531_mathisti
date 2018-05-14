@@ -19,6 +19,8 @@ The camera that follows the glider does not follow properly, and is only oriente
 Using 'R' you can reset the glider to it's original position.
 If you press 'F' you will move your plane to a random position. Does not check whether you actually end up inside the map or not!
 
+Source for generating random floats for the random move: https://stackoverflow.com/a/686373 (last accessed 14.05.2018)
+
 # Deployment:
 To set up, clone the repo. Start cmake and navigate the source to the main folder of the repo and say it should build in path_to_folder/build. Hit "configure", then "generate".
 
