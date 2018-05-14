@@ -17,35 +17,13 @@
 #include "gtc/type_ptr.hpp"
 #include "gtx/matrix_decompose.hpp"
 
-// TODO: RIP APART!!! (modularity.)
-
-
-// Defines several possible options for model movement. Used as abstraction to stay away from window-system specific input methods
-enum Model_Movement {
-	throttleLEFT,
-	throttleRIGHT,
-	throttleUPWARD,
-	throttleDOWNWARD
-};
-
-
 
 class Model
 {
 public:
 	/*  Model atributes */
-	
-	glm::vec3 model_Up;
-	glm::vec3 model_Right;
-	glm::vec3 WorldUp;
-	glm::vec3 spawn;
 	glm::mat4 transform;
 	
-
-	/* Euler Angles */
-	float modelYaw;
-	float modelPitch;
-
 
 	/*  Functions   */
 	Model();
@@ -56,8 +34,6 @@ public:
 	void rotate(float degrees, glm::vec3 rotation);
 	void scale(glm::vec3 scale);
 	void scale(float scale);
-	glm::vec3 getPos();
-	void setPos(glm::vec3);
 	void loadModel(std::string path);
 	
 	
@@ -65,11 +41,10 @@ private:
 	std::vector<Texture> textures_loaded;
 
 	/*  Model Data  */
-	glm::vec3 pos;
 	std::vector<Mesh> meshes;
 	std::string directory;
-	/*  Functions   */
 
+	/*  Functions   */
 	void processNode(aiNode *node, const aiScene *scene);
 	Mesh processMesh(aiMesh *mesh, const aiScene *scene);
 	std::vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type,

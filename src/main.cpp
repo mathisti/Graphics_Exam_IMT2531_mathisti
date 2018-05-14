@@ -8,39 +8,21 @@
 
 void testLight(Shader& shader) {
 
+
+	// Directional light
 	shader.setBool("dirSet", true);
 	shader.setVec3("dirLight.direction", glm::vec3(1.0f, -1.0f, -0.3f));
 	shader.setVec3("dirLight.ambient", glm::vec3(0.1f, 0.05f, 0.05f));
 	shader.setVec3("dirLight.diffuse", glm::vec3(0.2f, 0.2f, 0.2f));
 	shader.setVec3("dirLight.specular", glm::vec3(0.2f, 0.2f, 0.2f));
-
-
-
-
-	// LIGHT CLASS STUFF
-	/*shader.setBool("light.isDirection", lightToggle);
-	shader.setVec3("light.position", camera.Position);
-	shader.setVec3("light.direction", camera.Front);
-	shader.setFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
-	shader.setFloat("light.outerCutOff", glm::cos(glm::radians(17.5f)));
-	shader.setVec3("light.ambient", 0.05f, 0.05f, 0.05f);
-	shader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
-	shader.setVec3("light.specular", 0.5f, 0.5f, 0.5f);
-
-	// light 600 distance
-
-	shader.setFloat("light.constant", 1.0f);
-	shader.setFloat("light.linear", 0.007);
-	shader.setFloat("light.quadratic", 0.0002);
-	shader.setVec3("viewPos", camera.Position);*/
 }
 
+// Input
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 void error_callback(int error, const char* description);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
-void processInput(GLFWwindow *window);
 
 // settings
 const unsigned int SCR_WIDTH = 1920;
@@ -124,25 +106,14 @@ int main() {
 	Model world("assets/models/heightmap/height100.obj");
 	planeModel plane_model("assets/models/model/ask21mi.obj");
 	plane_model.translate(glm::vec3(0, 0, 0));
-	plane_model.setPos(glm::vec3(0.0f, 0.0f, 0.0f));
-	plane_model.spawn = plane_model.getPos();
 	plane_model.moveSpeed = -5.0f;
 	
-	//Model city("assets/models/box.obj");
 	Shader shader("shaders/testvertex.vert", "shaders/testfragment.frag");
 	
 	float lastFrame = 0;
 
-	// draw in wireframe
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-
-	
-	
 	world.scale(500.0f);
 	plane_model.scale(0.5f);
-	//city.scale(0.1f);
-	//city.translate(glm::vec3(-150, -1050, 500));
 	
 
 	float lightX = 0;
@@ -154,8 +125,8 @@ int main() {
 		float currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
-		// view/projection transformations
-		
+
+		// view/projection transformations		
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 1000.0f);
 
 		// render
@@ -165,25 +136,17 @@ int main() {
 
 		shader.use();
 	
+			// Directional light, going in the direction of the cameras front
 		testLight(shader);
-
-		//shader.setInt("spotCount", 1);
-		//shader.setInt("pointCount", 1);
 		shader.setBool("dirSet", true);
-		//shader.setVec3("pointLight[0].position", camera.Position);
 		shader.setVec3("dirLight.direction", camera.Front);
 		shader.setVec3("dirLight.ambient", glm::vec3(0.5f, 0.5f, 0.5f));
 		shader.setVec3("dirLight.diffuse", glm::vec3(0.8f, 0.8f, 0.8f));
 		shader.setVec3("dirLight.specular", glm::vec3(0.6f, 0.6f, 0.6f));
-		//shader.setFloat("spotLight[0].cutOff", glm::cos(glm::radians(16.0f)));
-		//shader.setFloat("spotLight[0].outerCutOff", glm::cos(glm::radians(20.0f)));
-		//shader.setFloat("pointLight[0].constant", 1.0f);
-		//shader.setFloat("pointLight[0].linear", 0.007);
-		//shader.setFloat("pointLight[0].quadratic", 0.0002);
 
 		std::cout << "\n" << plane_model.moveSpeed;
 
-
+		// Which camera to use (follow the plane or free roam where flying is following the plane)
 		if (!flying) {
 			glm::mat4 view = camera.GetViewMatrix();
 			shader.setMat4("projection", projection);
@@ -194,18 +157,16 @@ int main() {
 			shader.setMat4("view", view);
 		}
 
-		//model.translate(glm::vec3(-20 * deltaTime, 0, 0));
-		//model.rotate(40 * deltaTime, glm::vec3(0, 1, 0));
+		// The constant movement og the plane in the direction it's facing
 		plane_model.translate(glm::vec3(plane_model.moveSpeed * deltaTime, 0, 0));
-		plane_model.setPos(glm::vec3(plane_model.moveSpeed * deltaTime, 0, 0));
 
 		shader.setMat4("model", world.getTransform());
 		world.Draw(shader);
 		shader.setMat4("model", plane_model.getTransform());
 		plane_model.Draw(shader);
-		//shader.setMat4("model", city.getTransform());
-		//city.Draw(shader);
 
+
+		// Input that does something with the plane
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 			plane_model.update(throttleUPWARD, deltaTime);
 		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
@@ -241,7 +202,7 @@ void error_callback(int error, const char* description)
 
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-	
+	// Input for the camera.
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GLFW_TRUE);
 

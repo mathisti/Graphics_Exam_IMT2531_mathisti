@@ -231,11 +231,3 @@ unsigned int TextureFromFile(const char *path, const std::string &directory, boo
 
 	return textureID;
 }
-
-glm::vec3 Model::getPos() {
-	return pos;
-}
-
-void Model::setPos(glm::vec3 position) {
-	pos = position;
-}
