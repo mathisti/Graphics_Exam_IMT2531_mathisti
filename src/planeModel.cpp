@@ -67,7 +67,7 @@ void planeModel::setRandomPos() {
 
 }
 
-void planeModel::resetPos() {
+void planeModel::resetPos(glm::vec3 position) {
 	glm::vec3 newPos = glm::vec3(-(spawn + pos));
 	translate(newPos);
 	pos = newPos;

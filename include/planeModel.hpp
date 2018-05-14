@@ -25,12 +25,10 @@ public:
 	planeModel(char *path);
 
 	void update(Model_Movement direction, float deltaTime);
-	void setNewPosition();
-	void resetToOriginalPosition();
 	glm::vec3 currentPosition();
 	void updatePlaneVectors();
 	void setRandomPos();
-	void resetPos();
+	void resetPos(glm::vec3);
 
 
 

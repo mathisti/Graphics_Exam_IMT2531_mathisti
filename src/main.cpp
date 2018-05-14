@@ -57,7 +57,7 @@ int main() {
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 
-	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "framework", glfwGetPrimaryMonitor(), nullptr); // glfwGetPrimaryMonitor()
+	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Graphics exam 2018 mathisti", glfwGetPrimaryMonitor(), nullptr); // glfwGetPrimaryMonitor()
 	if (!window)
 	{
 		// Window or OpenGL context creation failed
@@ -103,17 +103,18 @@ int main() {
 
 	Model world("assets/models/heightmap/height100.obj");
 	planeModel plane_model("assets/models/model/ask21mi.obj");
+	
 	plane_model.translate(glm::vec3(0, 0, 0));
 	plane_model.moveSpeed = -5.0f;
+	plane_model.spawn = plane_model.currentPosition();
 	
+	world.scale(500.0f);
+	plane_model.scale(0.5f);
+
 	Shader shader("shaders/testvertex.vert", "shaders/testfragment.frag");
 	
 	float lastFrame = 0;
-
-	world.scale(500.0f);
-	plane_model.scale(0.5f);
 	
-
 	float lightX = 0;
 	
 	while (!glfwWindowShouldClose(window))
@@ -180,7 +181,7 @@ int main() {
 		if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
 			plane_model.setRandomPos();
 		if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
-			plane_model.resetPos();
+			plane_model.resetPos(plane_model.currentPosition());
 
 
 		glfwSwapBuffers(window);
