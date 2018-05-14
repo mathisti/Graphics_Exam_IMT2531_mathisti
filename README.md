@@ -17,6 +17,7 @@ The camera that follows the glider does not follow properly, and is only oriente
 
 ### Other Features:
 Using 'R' you can reset the glider to it's original position.
+If you press 'F' you will move your plane to a random position. Does not check whether you actually end up inside the map or not!
 
 # Deployment:
 To set up, clone the repo. Start cmake and navigate the source to the main folder of the repo and say it should build in path_to_folder/build. Hit "configure", then "generate".
