@@ -13,7 +13,7 @@ enum Model_Movement {
 
 class planeModel : public Model {
 public:
-
+	/* Plane attributes */
 	float moveSpeed;
 	glm::vec3 model_Front;
 	glm::vec3 model_Up;
@@ -21,6 +21,7 @@ public:
 	glm::vec3 WorldUp;
 	glm::vec3 spawn;
 
+	/* Plane functions */
 	planeModel();
 	planeModel(char *path);
 
@@ -31,18 +32,14 @@ public:
 	void resetPos(glm::vec3);
 
 
-
 	/* Euler Angles */
 	float modelYaw;
 	float modelPitch;
 
 private:
+	/* Plane attributes */
 	glm::vec3 velocity;
 	glm::vec3 pos;
-
-	float Yaw;
-	float Pitch;
-
 	float acceleration;
 	float rotationSpeed;
 	float maxSpeed;

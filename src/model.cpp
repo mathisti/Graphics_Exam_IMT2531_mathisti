@@ -10,7 +10,7 @@ unsigned int TextureFromFile(const char *path, const std::string &directory, boo
 
 Model::Model()
 {
-	std::cout << "you dun goofed";
+	
 }
 
 Model::Model(char *path)

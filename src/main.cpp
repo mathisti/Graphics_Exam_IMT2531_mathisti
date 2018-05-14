@@ -28,8 +28,8 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
 // settings
-const unsigned int SCR_WIDTH = 1920;
-const unsigned int SCR_HEIGHT = 1080;
+const unsigned int SCR_WIDTH = 1280;
+const unsigned int SCR_HEIGHT = 720;
 
 // camera
 Camera camera(glm::vec3(0.0f, 10.0f, 30.0f));
@@ -60,7 +60,7 @@ int main() {
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 
-	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Graphics exam 2018 mathisti", glfwGetPrimaryMonitor(), nullptr); // glfwGetPrimaryMonitor()
+	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Graphics exam 2018 mathisti", nullptr, nullptr); // glfwGetPrimaryMonitor()
 	if (!window)
 	{
 		// Window or OpenGL context creation failed
@@ -184,8 +184,10 @@ int main() {
 		if (glfwGetKey(window, GLFW_KEY_PERIOD) == GLFW_PRESS)
 			plane_model.moveSpeed += 1.0f;
 		if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
+			// Generate 3 random floats between hi and lo
+			//		   LO																	 HI		LO
 			float x = -25 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (25 - (-25))));
-			float y = -2 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (-5 - 2)));
+			float y = -2 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (7 - 2)));
 			float z = -25 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (25 - (-25))));
 			plane_model.setRandomPos(x, y, z);
 		}
