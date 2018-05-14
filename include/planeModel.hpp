@@ -27,7 +27,7 @@ public:
 	void update(Model_Movement direction, float deltaTime);
 	glm::vec3 currentPosition();
 	void updatePlaneVectors();
-	void setRandomPos();
+	void setRandomPos(float x, float y, float z);
 	void resetPos(glm::vec3);
 
 

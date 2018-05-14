@@ -6,6 +6,9 @@
 #include "model.hpp"
 #include "planeModel.hpp"
 
+#include <cstdlib>
+#include <ctime>
+
 void testLight(Shader& shader) {
 
 
@@ -94,6 +97,8 @@ int main() {
 	}
 	
 
+	// Seed the random used to make random positions for the plane.
+	srand(static_cast <unsigned> (time(0)));
 
 	int width, height;
 	glfwGetFramebufferSize(window, &width, &height);
@@ -178,8 +183,12 @@ int main() {
 			plane_model.moveSpeed -= 1.0f;
 		if (glfwGetKey(window, GLFW_KEY_PERIOD) == GLFW_PRESS)
 			plane_model.moveSpeed += 1.0f;
-		if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
-			plane_model.setRandomPos();
+		if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
+			float x = -25 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (25 - (-25))));
+			float y = -2 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (-5 - 2)));
+			float z = -25 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (25 - (-25))));
+			plane_model.setRandomPos(x, y, z);
+		}
 		if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
 			plane_model.resetPos(plane_model.currentPosition());
 

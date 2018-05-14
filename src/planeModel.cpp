@@ -60,8 +60,8 @@ void planeModel::updatePlaneVectors()
 	model_Up = glm::normalize(glm::cross(model_Right, model_Front));
 }
 
-void planeModel::setRandomPos() {
-	glm::vec3 newPos = glm::vec3(40.0f, 25.0f, -33.0f);
+void planeModel::setRandomPos(float x, float y, float z) {
+	glm::vec3 newPos = glm::vec3(x, y, z);
 	translate(newPos);
 	pos = newPos;
 
