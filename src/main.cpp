@@ -183,7 +183,7 @@ int main() {
 		if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
 			plane_model.resetPos(plane_model.currentPosition());
 
-
+		
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
