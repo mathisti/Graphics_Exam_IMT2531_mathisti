@@ -167,9 +167,9 @@ int main() {
 
 		// Input that does something with the plane
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-			plane_model.update(throttleUPWARD, deltaTime);
-		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 			plane_model.update(throttleDOWNWARD, deltaTime);
+		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+			plane_model.update(throttleUPWARD, deltaTime);
 		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 			plane_model.update(throttleLEFT, deltaTime);
 		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
